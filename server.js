@@ -36,7 +36,7 @@ app.use('/api/f1', f1Router);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // React/Vite fallback
-app.get('/*', (_req, res) => {
+app.use((_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
