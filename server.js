@@ -11,11 +11,11 @@ import f1Router from './routes/f1.js';
 
 dotenv.config();
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const PORT = Number(process.env.PORT || 8080);
-const distDir = path.join(__dirname, 'dist');
-const frontendOrigin = process.env.FRONTEND_ORIGIN || true;
 
 app.use(cors({
   origin: "*"
@@ -32,12 +32,15 @@ app.use('/api/football', footballRouter);
 app.use('/api/basketball', basketballRouter);
 app.use('/api/f1', f1Router);
 
-app.use(express.static(distDir));
+// Serve frontend build files
+app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use((_req, res) => {
-  res.sendFile(path.join(distDir, 'index.html'));
+// React/Vite fallback
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
+// Error handler
 app.use((err, _req, res, _next) => {
   console.error('[Server]', err);
   res.status(500).json({ error: 'Internal server error' });
