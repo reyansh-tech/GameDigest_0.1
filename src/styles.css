@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: #f7f7f5;
+    background:
+      radial-gradient(circle at top left, rgba(242, 194, 48, .10), transparent 30rem),
+      radial-gradient(circle at bottom right, rgba(49, 99, 255, .08), transparent 34rem),
+      #07080a;
+    font-family: 'DM Sans', sans-serif;
+  }
+  button, input { font: inherit; }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-card/[.82] shadow-premium backdrop-blur-xl;
+  }
+  .gold-pill {
+    @apply rounded-full bg-gold px-4 py-2 text-xs font-bold text-black transition active:scale-95;
+  }
+  .soft-pill {
+    @apply rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-300 transition hover:border-gold/40 hover:text-white active:scale-95;
+  }
+  .nav-item {
+    @apply flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-zinc-400 transition hover:bg-white/5 hover:text-white;
+  }
+  .nav-item-active {
+    @apply bg-gold/15 text-gold ring-1 ring-gold/20;
+  }
+  .skeleton {
+    @apply animate-pulse rounded-2xl bg-white/[.08];
+  }
+}
